@@ -1,91 +1,100 @@
 <?php
 
-interface Form
+class Formulario
 {
-    function CriarFormulario($label, $input);
-}
+    public $campo;
+    public $campo2;
+    public $nomeDoFormulario;
 
-class CriaForm implements Form
-{
-    function CriarFormulario($label, $input)
+    public function __construct($nomeFormulario)
     {
-        echo "
-        <html>
-            <head>
-                <title>Formulario Teste</title>
-                <style>
-                    body{
-                        text-align: center;
-                    }
-                    h1{
-                        font-family: 'Courier New, Courier', monospace;
-                    }
-
-                    .label{
-                        font-family: 'Courier New', Courier, monospace;
-                        font-size: 18px;
-                        padding: 5px;
-                    }
-
-                    .input{
-                        margin: 5px;
-                        height: 30px;
-                        width: 300px;
-                    }
-
-                    .btn{
-                        height: 30px;
-                        width: 80px;
-                        background: #f4f4f4;
-                        margin-left: 5%;
-                        margin-top: 10px;
-                    }
-                    .btn:hover{
-                        cursor: pointer;
-                    }
-
-                </style>
-            </head>
-            <body>
-                <h1 class='teste'>Formulario Dinamico</h1>
-                <form action=''>
-
-
-                    <label for='' class='label'>{$label}:</label>
-                    <input type='{$input}' class='input'/><br/>
-
-
-                    <input type='submit' class='btn' value='Enviar'/>
-
-                </form>
-            </body>
-        </html>
-        ";
-
+        $this->nomeDoFormulario = $nomeFormulario;
     }
 
+
+    public function getCampo()
+    {
+        return $this->campo;
+    }
+
+
+    public function setCampo($campo)
+    {
+        $this->campo = $campo;
+    }
+
+
+    public function getCampo2()
+    {
+        return $this->campo2;
+    }
+
+
+    public function setCampo2($campo2)
+    {
+        $this->campo2 = $campo2;
+    }
+
+
+    public function Render()
+    {
+        echo "
+            <html>
+                <header>
+                    <title>{$this->nomeDoFormulario}</title>
+                    <style>
+                        body{
+                            text-align: center;
+                        }
+                        h1{
+                            font-family: 'Courier New, Courier', monospace;
+                            margin-top: 30px;
+                        }
+
+                        .label{
+                            font-family: 'Courier New', Courier, monospace;
+                            font-size: 18px;
+                            padding: 5px;
+                        }
+
+                        .input{
+                            margin: 5px;
+                            height: 30px;
+                            width: 200px;
+                        }
+
+                        .btn{
+                            height: 30px;
+                            width: 80px;
+                            background: #f4f4f4;
+                            margin-left: 5%;
+                            margin-top: 10px;
+                        }
+                        .btn:hover{
+                            cursor: pointer;
+                        }
+                    </style>
+                </header>
+
+                <body>
+                    <h1>{$this->nomeDoFormulario}</h1>
+                    <form>
+                        <label for='' class='label'>{$this->getCampo()}</label>
+                        <input type='text' class='input' value='' /><br>
+
+                        <label for='' class='label'>{$this->getCampo2()}</label>
+                        <input type='text' class='input' value='' /><br>
+
+                        <input type='submit' class='btn' value='Enviar'/>
+                    </form>
+                </body>
+
+            </html>
+        ";
+    }
 }
 
-
-$mostrar = new CriaForm();
-//echo $mostrar->CriarFormulario(Nome, text);
-
-
-
-$campos = [
-    'Nome',
-    'Email',
-    'Senha',
-    'Assunto'
-];
-
- foreach ($campos as $v) {
-     //echo $v . '<br>';
-
-
-    $mostrar->CriarFormulario($v,text);
-
- }
-
-//
-// $mostrar->CriarFormulario(foreach($campos as $v2){echo $v2.'<br>';});
+$form = new Formulario('Formulario de Contato');
+$form->setCampo('Nome :');
+$form->setCampo2('E-mail:');
+$form->Render();
